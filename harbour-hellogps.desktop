@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+X-Nemo-Application-Type=silica-qt5
+Icon=harbour-hellogps
+Exec=harbour-hellogps
+Name=Hello GPS
+# translation example:
+# your app name in German locale (de)
+# Name[fi]=Moro GPS
+
