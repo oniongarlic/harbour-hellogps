@@ -6,7 +6,7 @@ CoverBackground {
 
     CoverPlaceholder {
         id: coverph
-        text: "Hello GPS\n"+root.gps.valid===true ? "Fix" : "No fix"
+        text: "Hello GPS\n"+(root.gps.valid ? "Fix" : "No fix")
         icon.source: "icon.png"
     }
 }
