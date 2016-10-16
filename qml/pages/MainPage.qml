@@ -26,7 +26,7 @@ Page {
 
             DetailItem {
                 label: "GPS Time"
-                value: root.gps.ts>0 ? root.gps.ts : "-"
+                value: root.gps.ts>0 ? Qt.formatDateTime(new Date(root.gps.ts*1000),"dd.MM.yyyy - hh:mm:ss" ) : "-"
             }
 
             DetailItem {
@@ -39,12 +39,43 @@ Page {
                 value: root.gps.valid ? "Yes" : "No"
             }
 
+            DetailItem {
+                id: posLat
+                label: "Latitude"
+            }
+
+            DetailItem {
+                id: posLon
+                label: "Longitude"
+            }
+
+            Connections {
+                target: root.gps
+                onPositionChanged: {
+                    posLat.value=root.gps.getLatitude();
+                    posLon.value=root.gps.getLongitude();
+                }
+            }
+
             /*
             DetailItem {
                 label: "Accuracy";
-                value: root.gps.valid ? "Yes" : "No"
+                value: root.gps.valid ? root.gps.accuracy : "-"
             }
             */
+
+            Button {
+                text: "Goto map"
+                anchors.horizontalCenter: parent.horizontalCenter
+                enabled: root.gps.valid
+                onClicked: {
+                    var lat=root.gps.getLatitude();
+                    var lon=root.gps.getLongitude();
+                    var url="http://www.openstreetmap.org/#map=16/"+lat+"/"+lon;
+                    console.debug("Opening URL: "+url)
+                    Qt.openUrlExternally(url);
+                }
+            }
 
             DetailItem {
                 label: "Altitude";
@@ -64,24 +95,6 @@ Page {
             DetailItem {
                 label: "Climb"
                 value: root.gps.valid ? root.gps.climb : '-'
-            }
-
-            DetailItem {
-                id: posLat
-                label: "Latitude"
-            }
-
-            DetailItem {
-                id: posLon
-                label: "Longitude"
-            }
-
-            Connections {
-                target: root.gps
-                onPositionChanged: {
-                    posLat.value=root.gps.getLatitude();
-                    posLon.value=root.gps.getLongitude();
-                }
             }
         }
     }
