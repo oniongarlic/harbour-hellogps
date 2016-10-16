@@ -115,11 +115,15 @@ PositionSource::~PositionSource() {
 void PositionSource::gcSatelliteChanged(QDBusMessage msg) {
     QVariantList arguments = msg.arguments();
 
-    uint timestamp = arguments.at(0).toInt();
+    int timestamp = arguments.at(0).toInt();
     satellitesUsed = arguments.at(1).toInt();
     satellitesView = arguments.at(2).toInt();
 
     qDebug() << "*** Satellites: " << timestamp << "@ " << satellitesUsed << "/" << satellitesView;
+
+    // What is it ? Not what I expected
+    //gpsTime=timestamp;
+    //emit tsChanged(gpsTime);
 
     emit satellitesInViewChanged();
     emit satellitesInUseChanged();
@@ -188,14 +192,11 @@ void PositionSource::gcPositionChanged(QDBusMessage msg)
     const QDBusArgument &aargs = a.at(5).value<QDBusArgument>();
     if (aargs.currentType()==QDBusArgument::StructureType) {
         aargs.beginStructure();
-        qDebug("AF");
-        aargs >> af;
-        qDebug() << af;
-        aargs >> ah;
-        qDebug() << ah;
-        aargs >> av;
-        qDebug() << av;
+        aargs >> acc;
+        aargs >> acch;
+        aargs >> accv;
         aargs.endStructure();
     }
-    qDebug() << "Accuracy: " << af << " " << ah << " / " << av;
+    emit accuracyChanged(acc);
+    qDebug() << "Accuracy: " << acc << " " << acch << " / " << accv;
 }
