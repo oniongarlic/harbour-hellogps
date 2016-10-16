@@ -34,7 +34,7 @@ Page {
         canAccept: false;
         SilicaFlickable {
             anchors.fill: parent
-            contentHeight: cls.height
+            //contentHeight: cls.height
 
             Column {
                 id: cls
@@ -44,7 +44,6 @@ Page {
                 PageHeader {
                     title: "License"
                 }
-
                 Label {
                     id: nameField
                     text: license
@@ -63,6 +62,8 @@ Page {
         contentHeight: aboutColumn.height
 
         VerticalScrollDecorator { flickable: view }
+
+
 
         Column {
             id: aboutColumn
