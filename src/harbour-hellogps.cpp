@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 {
     QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
     qmlRegisterType<PositionSource>("harbour.hellogps", 1, 0, "PositionSource");
-    const QString applicationVersion("0.2");
+    const QString applicationVersion("0.2.1");
 
     app->setApplicationName("harbour-hellogps");
     app->setApplicationVersion(applicationVersion);
